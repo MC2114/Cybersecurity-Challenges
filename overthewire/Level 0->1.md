@@ -17,3 +17,4 @@ contribute to the OverTheWire community so we can keep these games free!
 
 The password you are looking for is: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If
 ```
+<strong>Password:</strong> <code>ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If</code>
