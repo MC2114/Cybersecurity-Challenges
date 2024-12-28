@@ -12,5 +12,5 @@ The goal of this level is to log into the game. Do the following in order to ach
 ## Solution
 Simply access it with <code>ssh</code> command.
 ```powershell
-ssh century0@century.underthewire.tech
+ssh century1@century.underthewire.tech
 ```
