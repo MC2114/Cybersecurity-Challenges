@@ -20,14 +20,14 @@ _heart_robots"}).PathName
 PS C:\users\cyborg12\desktop> echo $path                                               
 c:\windows\system32\cmd.exe                                                                           
 ```
-Encode the filepath into files for Base64 decoding.
+Encode the filepath using 'Unicode'.
 ```powershell
-$bytes = [System.Text.Encoding]::UTF8.GetBytes($path)                                                                          
+PS C:\users\cyborg12\desktop> $bytes = [System.Text.Encoding]::Unicode.GetBytes($path) 
 ```
 Decode the file and add the first 4 characters (lowercase) to the name of the file on the desktop.
 ```powershell
 PS C:\users\cyborg12\desktop> [Convert]::ToBase64String($bytes)                        
-Yzpcd2luZG93c1xzeXN0ZW0zMlxjbWQuZXhl
+YwA6AFwAdwBpAG4AZABvAHcAcwBcAHMAeQBzAHQAZQBtADMAMgBcAGMAbQBkAC4AZQB4AGUA 
 PS C:\users\cyborg12\desktop> ls                                                       
                                                                                        
                                                                                        
@@ -38,4 +38,4 @@ Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----                                  
 -a----        8/30/2018  10:45 AM              0 _heart  
 ```
-<strong>Password:</strong> <code>yzpc_heart</code>
+<strong>Password:</strong> <code>ywa6_heart</code>
