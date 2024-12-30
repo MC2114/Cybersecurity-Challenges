@@ -18,5 +18,14 @@ PSChildName     : CurrentVersion
 PSDrive         : HKLM                                                          
 PSProvider      : Microsoft.PowerShell.Core\Registry                            
 
+PS C:\users\Groot13\desktop> ls
+
+
+    Directory: C:\users\Groot13\desktop
+
+
+Mode                LastWriteTime         Length Name                          
+----                -------------         ------ ----                          
+-a----        8/30/2018  10:51 AM              0 _ned        
 ```
-<strong>Password:</strong> <code>utw_team</code>
+<strong>Password:</strong> <code>utw_team_ned</code>
