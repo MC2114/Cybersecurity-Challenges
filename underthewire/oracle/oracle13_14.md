@@ -4,7 +4,8 @@ The password for oracle14 is the name of the user who created the Galaxy securit
 ## Solution
 * Use <code>ls</code> to check the event logs file on the desktop, which is <code>security.evtx</code>
 * Use the <code>Get-WinEvent</code> cmdlet to retrieve the message containing the user information. Initially, I tried to filter the security group by <code>-LogName Security</code>, but this raises an error message. So, I change to filtering by the event <code>ID: 4727</code> instead. On Windows, Event ID 4727 signifies that a security-enabled global group was created.
-* For future reference, the table for all Win Events ID is [here](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor). 
+* For future reference, the table for all Win Events ID is [here](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor).
+* The name of the text file is <code>88</code>
 ```powershell
 PS C:\users\Oracle13\desktop> ls                                               
                                                                                
@@ -125,5 +126,5 @@ Properties           : {System.Diagnostics.Eventing.Reader.EventProperty,
                                                                                
                                                            
 ```
-Notice that in the message with <code>Group Name: Galaxy</code>, it also says <code>Account Name: gamora</code>, which is the password. <br>
-<strong>Password:</strong> <code>gamora</code>
+Notice that in the message with <code>Group Name: Galaxy</code>, it also says <code>Account Name: gamora</code>. <br>
+<strong>Password:</strong> <code>gamora88</code>
