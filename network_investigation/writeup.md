@@ -17,7 +17,7 @@ Password: <code>ccdc</code>
 
 ## What I did
 <details>
-  <summary>Basic Information about the machine</summary>
+  <summary>Basic Information (CPU, USB and RAM)</summary>
   
   > Reference: [Red Hat](https://www.redhat.com/en/blog/linux-system-info-commands)
   
@@ -49,12 +49,16 @@ Password: <code>ccdc</code>
   ![system](./images/system.png)
 </details>
 
- <details>
-   <summary>More stuff</summary>
- </details>
-
-
+ ### Upgrade & Update the Kernel
+ The first thing to do when investigating any machine is to upgrade the kernel. Yet for some reason I spent a really long time here figuring out why I could not install all the packages (lol).
+ ```shell
+$ sudo apt update && sudo apt upgrade 
 ```
+The shell raised some failure to fetch certain packages/files, most namely some ubuntu files and docker updates, even when i opted to run <code>sudo apt-get update</code> or with <code>--fix-missing</code>. It seems the issue lies in the fact that some packages cannot be installed from <code>us-east-1.ec2.archive.ubuntu.com</code>, so it is likely that it is just unavailable storage from AWS EC2 instance. Alternatively, the files <code>/etc/apt/sources.list</code> and <code>/etc/apt/keyrings/docker.gpg</code> might have been corrupted, but after checking with the Ubuntu and Docker documentations I found that they were pretty standard. 
+
+
+
+```shell
 $ sysctl -q net.ipv4.tcp_max_syn_backlog
 net.ipv4.tcp_max_syn_backlog
 ```
