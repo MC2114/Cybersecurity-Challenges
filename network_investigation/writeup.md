@@ -16,10 +16,42 @@ Username: <code>ccdc</code> <br>
 Password: <code>ccdc</code>
 
 ## What I did
-[Red Hat](https://www.redhat.com/en/blog/linux-system-info-commands)
-### Display CPU Information
+<details>
+  <summary>Basic Information about the machine</summary>
+  
+  > Reference: [Red Hat](https://www.redhat.com/en/blog/linux-system-info-commands)
+  
+  ### Display CPU Information
+  ![lscpu](./images/lscpu.png)
 
-<img width="722" alt="Screenshot 2025-01-12 at 7 43 54 PM" src="https://github.com/user-attachments/assets/c61ebe49-e8fb-4cf1-9a49-ae46870b5896" />
+  ### Disk Information
+  ![lsblk](./images/lsblk_disk.png)
+
+  ### USB
+  There is no USB devices on this machine.
+
+  ### PCI
+  A summary of all PCI devices
+  ![pci](./images/pci_info.png)
+
+  ### RAM Information
+  Basic RAM utilization information
+  ![free_ram](./images/free_ram.png)
+
+  Use <code>dmidecode</code> for more specific information. <br>
+  Memory use:
+  ![memory](./images/bios.png)
+  
+  BIOS Info:
+  ![bios](./images/bios2.png)
+  
+  System Info:
+  ![system](./images/system.png)
+</details>
+
+ <details>
+   <summary>More stuff</summary>
+ </details>
 
 
 ```
