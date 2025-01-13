@@ -54,7 +54,7 @@ Password: <code>ccdc</code>
 
  ### Upgrade & Update the Kernel
  The first thing to do when investigating any machine is to upgrade the kernel. Yet for some reason I spent a really long time here figuring out why I could not install all the packages (lol).
- ```shell
+```shell
 $ sudo apt update && sudo apt upgrade 
 ```
 The shell raised some failure to fetch certain packages/files, most namely some ubuntu files and docker updates, even when i opted to run <code>sudo apt-get update</code> or with <code>--fix-missing</code>. It seems the issue lies in the fact that some packages cannot be installed from <code>us-east-1.ec2.archive.ubuntu.com</code>, so it is likely that it is just unavailable storage from AWS EC2 instance. Alternatively, the files <code>/etc/apt/sources.list</code> and <code>/etc/apt/keyrings/docker.gpg</code> might have been corrupted, but after checking with the Ubuntu and Docker documentations I found that they were pretty standard. 
@@ -62,15 +62,125 @@ The shell raised some failure to fetch certain packages/files, most namely some 
 Fun Fact: The terminal got super messed up once I checked the <code>/etc/apt/keyrings/docker.gpg</code>, so I had to reboot the whole thing.
 <details>
   <summary>Failure to install all packages</summary>
+  
   ![failed](./images/failed.png)
   
 </details>
 
 <details>
-  <summary>Failure to install all packages</summary>
-  ![failed](./images/failed.png) 
+  <summary>Dependencies look normal</summary>
+  
+  * Docker
+  ![dep](./images/dep.png)
+
+  * Ubuntu
+  ![dep](./images/sources_list.png)
+
+  * Messed up terminal
+  ![ohno](./images/messed_up_terminal.png)
 </details>
 
+### Escalating prvilege to Root user
+More access (and more privilege) to the machine is always nice (maybe). 
+```shell
+$ sudo su -
+$ sudo -l 
+```
+<details>
+  <summary><code>ls -la</code></summary>
+
+  ```shell
+  root@ccdc:~# ls -la /etc/passwd
+  -rw-r--r-- 1 root root 1937 Mar 12  2024 /etc/passwd 
+  ```
+  
+  This command allows us to view permission of a file. 
+  **Permission Groups are defined as follows:**
+  1. Owner
+  2. Group
+  3. All Users
+    
+  **Permission Types are defined as follows:**
+  1. Read = 4
+  2. Write = 2
+  3. Execute = 1
+  4. – (No permissions set) = 0
+
+  So the <code>/etc/passwd</code> file has the following permission:
+  1. File Type
+  2. Owner (root) has read and write permissions
+  3. Group (root) has read permissions
+  4. All Users has read permissions
+  5. Number represents hard links to the file
+  6. Owner
+  7. Group
+
+  Other information:
+  1. File Size: 1937
+  2. Modification Date: Mar 12 2024
+
+</details>
+
+<details>
+  <summary><code>getfacl</code></summary>
+  Get file access control list (cannot <code>apt install acl</code>, similar reason to not being able to update the machine).
+</details>
+
+<details>
+  <summary><code>setfacl</code></summary>
+  Set file access control list (cannot <code>apt install acl</code>, similar reason to not being able to update the machine).
+</details>
+
+<details>
+  <summary><code>chmod</code></summary>
+  Change file mode bits
+</details>
+
+<details>
+  <summary><code>chown</code></summary>
+  Change file owner and group
+</details>
+
+<details>
+  <summary><code>/etc/shadow</code></summary>
+  
+  * The shadow file is one of the most protected files on a Linux system as it contains the encrypted password used by all known users to log on to the system. It stores the user account information along with details on password settings. If the shadow file can be accessed by an unauthorized user, then attackers can attempt to crack the hash to find the clear text password used. If the password is human-created, this method is often successful for an attacker.
+  ![shadow](./images/shadow)
+  
+  * The colon <code>:</code> separated the fields in each <code>passwd</code> file, formatted in this order, from left to right:
+  1. Username
+  2. Password (typically encrypted in a one-way hash format) such as:
+     - $1$ is MD5
+     - $2a$ is Blowfish
+     - $5$ is SHA-256
+     - $6$ is SHA-512
+  3. Last password change
+  4. Minimum password age
+  5. Maximum password age
+  6. Warn period
+  7. Inactivity period
+  8. Expiration date
+  9. Unused field
+
+</details>
+
+### Fail2Ban
+If you ever connected something to the public internet you might have noticed that within seconds people are knocking on your ports. To avoid people bruteforcing them self into your server you can setup Fail2Ban. Fail2Ban watches logfiles for incorrect logins and automatically bans IP’s. Unfortunately though, once again (just like <code>acl</code>) I could not install the package.
+```shell
+  root@ccdc:~# apt install fail2ban
+  ```
+
+### Logwatch
+Similar issue, but the spirit is: Logwatch is a package that parses logs files on your system and sends over a report. This is a useful way to monitor whats going on and ensure you can spot issues more timely and easily.
+```shell
+  root@ccdc:~# apt install logwatch
+  ```
+
+### Setting up firewall (UFW)
+UFW stands for uncomplicated firewall. UFW actually is not a firewall itself, instead it is a configuration program for iptables. Installing it can give the machine some extra layer of protection:
+ ```shell
+  root@ccdc:~# apt install ufw
+  ```
 
 ```shell
 $ sysctl -q net.ipv4.tcp_max_syn_backlog
