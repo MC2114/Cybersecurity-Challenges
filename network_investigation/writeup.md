@@ -20,6 +20,9 @@ Password: <code>ccdc</code>
   <summary>Basic Information (CPU, USB and RAM)</summary>
   
   > Reference: [Red Hat](https://www.redhat.com/en/blog/linux-system-info-commands)
+  ### Release Ver.
+  This is a Ubuntu 22.04.4 machine.
+  ![ver](./images/ubuntu_ver)
   
   ### Display CPU Information
   ![lscpu](./images/lscpu.png)
@@ -56,6 +59,17 @@ $ sudo apt update && sudo apt upgrade
 ```
 The shell raised some failure to fetch certain packages/files, most namely some ubuntu files and docker updates, even when i opted to run <code>sudo apt-get update</code> or with <code>--fix-missing</code>. It seems the issue lies in the fact that some packages cannot be installed from <code>us-east-1.ec2.archive.ubuntu.com</code>, so it is likely that it is just unavailable storage from AWS EC2 instance. Alternatively, the files <code>/etc/apt/sources.list</code> and <code>/etc/apt/keyrings/docker.gpg</code> might have been corrupted, but after checking with the Ubuntu and Docker documentations I found that they were pretty standard. 
 
+Fun Fact: The terminal got super messed up once I checked the <code>/etc/apt/keyrings/docker.gpg</code>, so I had to reboot the whole thing.
+<details>
+  <summary>Failure to install all packages</summary>
+  ![failed](./images/failed.png)
+  
+</details>
+
+<details>
+  <summary>Failure to install all packages</summary>
+  ![failed](./images/failed.png) 
+</details>
 
 
 ```shell
