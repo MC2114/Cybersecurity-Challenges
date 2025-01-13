@@ -275,8 +275,9 @@ net.ipv4.ip_local_port_range = 2000 65000
 ```
 </details>
 
-A "sane" value for <code>net.ipv4.tcp_max_syn_backlog</code> in Ubuntu's sysctl.conf is typically between 1024 and 4096. Before we configurated the system:
+A "sane" value for <code>net.ipv4.tcp_max_syn_backlog</code> in Ubuntu's sysctl.conf is typically between 1024 and 4096. Our current value is low in comparison (I can't be too sure, there are conflicting information online after all) but this is where I ran out of time for a bit.
 ```shell
 $ sysctl -q net.ipv4.tcp_max_syn_backlog
 net.ipv4.tcp_max_syn_backlog = 128
 ```
+Very cool [note](https://gist.github.com/magnetikonline/2760f98f6bf654d5ad79) on <code>sysctl</code> netowrking that I found (and will try later). Thank you for reading until here, I was pretty clueless throughout the challenge (and I did not find anything much I think) but this was a lot of fun!
